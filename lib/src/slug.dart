@@ -76,6 +76,28 @@ class Slug {
     return result;
   }
 
+  /// Generates a unique slug by appending incrementing suffixes until
+  /// [exists] returns false.
+  ///
+  /// The [exists] callback is called with each candidate slug to check
+  /// for collisions (e.g., database lookup).
+  static Future<String> unique(
+    String input, {
+    String separator = '-',
+    int? maxLength,
+    required Future<bool> Function(String slug) exists,
+  }) async {
+    final base = generate(input, separator: separator, maxLength: maxLength);
+    if (!await exists(base)) return base;
+
+    for (var i = 1; i <= 1000; i++) {
+      final candidate = withSuffix(base, i, separator: separator);
+      if (!await exists(candidate)) return candidate;
+    }
+
+    throw StateError('Could not generate unique slug after 1000 attempts');
+  }
+
   /// Append a numeric [suffix] to a [slug] for collision avoidance.
   ///
   /// ```dart

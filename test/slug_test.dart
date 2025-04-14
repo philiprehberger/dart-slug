@@ -60,6 +60,44 @@ void main() {
     });
   });
 
+  group('Slug.unique', () {
+    test('returns base slug when no collision', () async {
+      final result = await Slug.unique(
+        'Hello World',
+        exists: (slug) async => false,
+      );
+      expect(result, 'hello-world');
+    });
+
+    test('appends suffix on collision', () async {
+      final existing = {'hello-world'};
+      final result = await Slug.unique(
+        'Hello World',
+        exists: (slug) async => existing.contains(slug),
+      );
+      expect(result, 'hello-world-1');
+    });
+
+    test('increments suffix until unique', () async {
+      final existing = {'hello-world', 'hello-world-1', 'hello-world-2'};
+      final result = await Slug.unique(
+        'Hello World',
+        exists: (slug) async => existing.contains(slug),
+      );
+      expect(result, 'hello-world-3');
+    });
+
+    test('respects custom separator', () async {
+      final existing = {'hello_world'};
+      final result = await Slug.unique(
+        'Hello World',
+        separator: '_',
+        exists: (slug) async => existing.contains(slug),
+      );
+      expect(result, 'hello_world_1');
+    });
+  });
+
   group('Slug.withSuffix', () {
     test('appends suffix with default separator', () {
       expect(Slug.withSuffix('hello-world', 2), equals('hello-world-2'));
