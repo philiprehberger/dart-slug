@@ -98,6 +98,24 @@ class Slug {
     throw StateError('Could not generate unique slug after 1000 attempts');
   }
 
+  /// Check whether [input] is already a valid slug.
+  ///
+  /// Returns `true` if the string is lowercase, contains only alphanumeric
+  /// characters and the [separator], with no leading/trailing separator and
+  /// no consecutive separators.
+  ///
+  /// ```dart
+  /// Slug.isSlug('hello-world');    // => true
+  /// Slug.isSlug('Hello World!');   // => false
+  /// Slug.isSlug('hello_world', separator: '_'); // => true
+  /// ```
+  static bool isSlug(String input, {String separator = '-'}) {
+    if (input.isEmpty) return false;
+    final pattern =
+        RegExp('^[a-z0-9]+(?:${RegExp.escape(separator)}[a-z0-9]+)*\$');
+    return pattern.hasMatch(input);
+  }
+
   /// Append a numeric [suffix] to a [slug] for collision avoidance.
   ///
   /// ```dart
