@@ -18,7 +18,7 @@ void main() {
     });
 
     test('transliterates German umlauts', () {
-      expect(Slug.generate('\u00DCn\u00EFc\u00F6d\u00E9'), equals('unicode'));
+      expect(Slug.generate('\u00DCn\u00EFc\u00F6d\u00E9'), equals('uenicoede'));
     });
 
     test('transliterates German sharp s', () {
