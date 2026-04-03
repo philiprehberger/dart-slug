@@ -1,0 +1,14 @@
+name: philiprehberger_slug
+description: >-
+  Unicode-aware URL slug generator with transliteration and collision handling
+version: 0.1.0
+homepage: https://philiprehberger.com/open-source-packages/dart/philiprehberger_slug
+repository: https://github.com/philiprehberger/dart-slug
+issue_tracker: https://github.com/philiprehberger/dart-slug/issues
+
+environment:
+  sdk: ^3.6.0
+
+dev_dependencies:
+  test: ^1.25.0
+  lints: ^5.0.0
