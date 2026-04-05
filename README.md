@@ -16,7 +16,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  philiprehberger_slug: ^0.1.1
+  philiprehberger_slug: ^0.2.0
 ```
 
 Then run:
@@ -58,6 +58,18 @@ Slug.generate('A very long title that should be truncated', maxLength: 20);
 // => 'a-very-long-title'
 ```
 
+### Unique Slugs
+
+```dart
+import 'package:philiprehberger_slug/philiprehberger_slug.dart';
+
+final slug = await Slug.unique(
+  'Hello World',
+  exists: (candidate) => database.slugExists(candidate),
+);
+// Returns "hello-world", "hello-world-1", "hello-world-2", etc.
+```
+
 ### Collision Handling
 
 ```dart
@@ -70,6 +82,7 @@ Slug.withSuffix('hello-world', 2);
 | Method | Description |
 |--------|-------------|
 | `Slug.generate(input, {separator, maxLength})` | Generate a URL-safe slug from any string |
+| `Slug.unique(input, {separator, maxLength, exists})` | Generate a collision-free slug with async callback |
 | `Slug.withSuffix(slug, suffix, {separator})` | Append a numeric suffix for collision avoidance |
 
 ## Development
