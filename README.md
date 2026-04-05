@@ -16,7 +16,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  philiprehberger_slug: ^0.2.0
+  philiprehberger_slug: ^0.3.0
 ```
 
 Then run:
@@ -70,6 +70,17 @@ final slug = await Slug.unique(
 // Returns "hello-world", "hello-world-1", "hello-world-2", etc.
 ```
 
+### Slug Validation
+
+```dart
+Slug.isSlug('hello-world');    // => true
+Slug.isSlug('Hello World!');   // => false
+Slug.isSlug('hello_world', separator: '_'); // => true
+Slug.isSlug('');               // => false
+Slug.isSlug('-leading');       // => false
+Slug.isSlug('double--dash');   // => false
+```
+
 ### Collision Handling
 
 ```dart
@@ -83,6 +94,7 @@ Slug.withSuffix('hello-world', 2);
 |--------|-------------|
 | `Slug.generate(input, {separator, maxLength})` | Generate a URL-safe slug from any string |
 | `Slug.unique(input, {separator, maxLength, exists})` | Generate a collision-free slug with async callback |
+| `Slug.isSlug(input, {separator})` | Check if a string is already a valid slug |
 | `Slug.withSuffix(slug, suffix, {separator})` | Append a numeric suffix for collision avoidance |
 
 ## Development
