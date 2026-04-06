@@ -8,7 +8,7 @@ Unicode-aware URL slug generator with transliteration and collision handling
 
 ## Requirements
 
-- Dart >= 3.6
+- Dart >= 3.8
 
 ## Installation
 
@@ -16,7 +16,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  philiprehberger_slug: ^0.3.0
+  philiprehberger_slug: ^0.4.0
 ```
 
 Then run:
