@@ -16,7 +16,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  philiprehberger_slug: ^0.4.0
+  philiprehberger_slug: ^0.5.0
 ```
 
 Then run:
@@ -88,6 +88,16 @@ Slug.withSuffix('hello-world', 2);
 // => 'hello-world-2'
 ```
 
+### Title Case Conversion
+
+```dart
+Slug.toTitle('hello-world');
+// => 'Hello World'
+
+Slug.toTitle('hello_world', separator: '_');
+// => 'Hello World'
+```
+
 ## API
 
 | Method | Description |
@@ -95,6 +105,7 @@ Slug.withSuffix('hello-world', 2);
 | `Slug.generate(input, {separator, maxLength})` | Generate a URL-safe slug from any string |
 | `Slug.unique(input, {separator, maxLength, exists})` | Generate a collision-free slug with async callback |
 | `Slug.isSlug(input, {separator})` | Check if a string is already a valid slug |
+| `Slug.toTitle(slug, {separator})` | Convert a slug back to title case |
 | `Slug.withSuffix(slug, suffix, {separator})` | Append a numeric suffix for collision avoidance |
 
 ## Development

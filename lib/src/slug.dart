@@ -116,6 +116,24 @@ class Slug {
     return pattern.hasMatch(input);
   }
 
+  /// Convert a slug back to title case.
+  ///
+  /// Splits on [separator] and capitalizes the first letter of each word.
+  /// Useful for breadcrumbs, page titles, and admin interfaces.
+  ///
+  /// ```dart
+  /// Slug.toTitle('hello-world'); // => 'Hello World'
+  /// Slug.toTitle('hello_world', separator: '_'); // => 'Hello World'
+  /// ```
+  static String toTitle(String slug, {String separator = '-'}) {
+    if (slug.isEmpty) return '';
+    return slug
+        .split(separator)
+        .where((part) => part.isNotEmpty)
+        .map((word) => '${word[0].toUpperCase()}${word.substring(1)}')
+        .join(' ');
+  }
+
   /// Append a numeric [suffix] to a [slug] for collision avoidance.
   ///
   /// ```dart
