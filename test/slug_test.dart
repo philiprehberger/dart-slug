@@ -108,4 +108,73 @@ void main() {
           equals('hello_world_3'));
     });
   });
+
+  group('Slug.isSlug', () {
+    test('returns true for valid slug', () {
+      expect(Slug.isSlug('hello-world'), isTrue);
+    });
+
+    test('returns true for single word', () {
+      expect(Slug.isSlug('hello'), isTrue);
+    });
+
+    test('returns false for empty string', () {
+      expect(Slug.isSlug(''), isFalse);
+    });
+
+    test('returns false for uppercase', () {
+      expect(Slug.isSlug('Hello-World'), isFalse);
+    });
+
+    test('returns false for spaces', () {
+      expect(Slug.isSlug('hello world'), isFalse);
+    });
+
+    test('returns false for leading separator', () {
+      expect(Slug.isSlug('-hello'), isFalse);
+    });
+
+    test('returns false for trailing separator', () {
+      expect(Slug.isSlug('hello-'), isFalse);
+    });
+
+    test('returns false for consecutive separators', () {
+      expect(Slug.isSlug('hello--world'), isFalse);
+    });
+
+    test('validates with custom separator', () {
+      expect(Slug.isSlug('hello_world', separator: '_'), isTrue);
+      expect(Slug.isSlug('hello-world', separator: '_'), isFalse);
+    });
+
+    test('allows numeric segments', () {
+      expect(Slug.isSlug('article-123'), isTrue);
+    });
+  });
+
+  group('Slug.toTitle', () {
+    test('converts slug to title case', () {
+      expect(Slug.toTitle('hello-world'), equals('Hello World'));
+    });
+
+    test('handles single word', () {
+      expect(Slug.toTitle('hello'), equals('Hello'));
+    });
+
+    test('handles empty string', () {
+      expect(Slug.toTitle(''), equals(''));
+    });
+
+    test('uses custom separator', () {
+      expect(Slug.toTitle('hello_world', separator: '_'), equals('Hello World'));
+    });
+
+    test('handles numeric segments', () {
+      expect(Slug.toTitle('article-123'), equals('Article 123'));
+    });
+
+    test('handles multiple words', () {
+      expect(Slug.toTitle('the-quick-brown-fox'), equals('The Quick Brown Fox'));
+    });
+  });
 }
